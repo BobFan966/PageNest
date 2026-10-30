@@ -1,0 +1,50 @@
+# macOS / editors
+.DS_Store
+._*
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local tools and temporary output
+.gstack/
+*.log
+tmp/
+temp/
+
+# Credentials and machine-specific settings
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# JavaScript / build output
+node_modules/
+dist/
+build/
+coverage/
+
+# Runtime data, uploads, and backups
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+/data/
+/uploads/
+/backups/
+/work/source/teacher（教师版）/QuickForm 2.5/data/
+/work/source/teacher（教师版）/QuickForm 2.5/static/assets/
+/work/source/teacher（教师版）/QuickForm 2.5/static/uploads/

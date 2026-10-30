@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="ImRhZDM5NWQ4YTY4YWRkNDgwY2VmZjcyODU5ZDQxYzAyNzhlODVjYmIi.atxhDg.Id9zTgFszREgkAluWm2GbwbVdRk">
+    <title>首页 - QuickForm</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/static/quickform.ico">
+    <!-- Bootstrap CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="/static/css/bootstrap-icons.css">
+    <link href="/static/css/common.css" rel="stylesheet">
+    <link href="/static/css/base.css" rel="stylesheet">
+    <script defer src="/static/js/qf_device_id.js"></script>
+    
+    
+    
+<link href="/static/vendor/introjs/introjs.min.css" rel="stylesheet">
+<link href="/static/css/introjs-bootstrap.css" rel="stylesheet">
+<link href="/static/css/home.css" rel="stylesheet">
+
+    <style>
+        /* 顶部维护提示横幅（磁盘空间不足/人工发放提示时出现）；也用于前端轮询动态插入 */
+        .qf-maintenance-banner {
+            background: #fff3cd;
+            border-bottom: 1px solid #ffe69c;
+            color: #664d03;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 1030;
+        }
+        .qf-maintenance-banner-inner {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0.6rem 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+        .qf-maintenance-banner-inner > .bi {
+            font-size: 1.15rem;
+            line-height: 1.3;
+            flex: 0 0 auto;
+        }
+        .qf-maintenance-banner-text strong { display: block; }
+        .qf-maintenance-banner-text span { opacity: 0.92; }
+        @media (max-width: 576px) {
+            .qf-maintenance-banner { font-size: 0.875rem; }
+        }
+
+        /* 私信气泡：不要在这里留换行/缩进，模板里正文必须紧贴标签，
+           否则 white-space: pre-wrap 会把缩进当成真实空格渲染出来 */
+        .qf-dm-bubble {
+            display: inline-block;
+            max-width: 100%;
+            padding: 0.6rem 0.9rem;
+            border-radius: 0.85rem;
+            line-height: 1.65;
+            text-align: left;
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow-wrap: anywhere;
+        }
+        .qf-dm-bubble-admin {
+            background: #f1f5f9;
+            color: #111827;
+            border: 1px solid #e2e8f0;
+            border-bottom-left-radius: 0.25rem;
+        }
+        .qf-dm-bubble-user {
+            background: #2563eb;
+            color: #fff;
+            border-bottom-right-radius: 0.25rem;
+        }
+    </style>
+
+</head>
+<body class="qf-page-home qf-theme-online">
+        
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">QuickForm</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="切换导航">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tutorials"><i class="bi bi-book"></i> 开源教程</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="qflinkNavDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-link-45deg"></i> QFLink
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="qflinkNavDropdown">
+                            
+                            <li>
+                                <a class="dropdown-item" href="https://wzkjgz.site/" target="_blank" rel="noopener noreferrer">
+                                    温州科技高中QF校园版
+                                    
+                                    <span class="d-block text-muted" style="font-size: 0.78rem; line-height: 1.35;">由温州科技高级中学提供，支持多模态任务（需要申请）。单任务流量1G，最大附件5M，单任务容量300M，总任务容量3G。</span>
+                                    
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a class="dropdown-item" href="https://qf.zmrobo.com/" target="_blank" rel="noopener noreferrer">
+                                    中鸣AI教育平台QF校园版
+                                    
+                                    <span class="d-block text-muted" style="font-size: 0.78rem; line-height: 1.35;">中鸣 AI 教育由中鸣机器人提供，支持多模态任务（需要申请）。单任务流量2G，最大附件10M，单任务容量600M，总任务容量5G。 · QFLink 校园版</span>
+                                    
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                    
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/teams"><i class="bi bi-building"></i> 入驻团队</a>
+                    </li>
+                    
+                    
+                </ul>
+                <ul class="navbar-nav">
+                    <!-- 语言切换 -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-globe"></i> 简体中文
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
+                            <li><a class="dropdown-item" href="/switch_lang/zh-simple">简体中文</a></li>
+                            <li><a class="dropdown-item" href="/switch_lang/zh-TW">繁體中文</a></li>
+                            <li><a class="dropdown-item" href="/switch_lang/en">English</a></li>
+                        </ul>
+                    </li>
+                    
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">注册</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">登录</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <div class="container mt-5">
+        <!-- 消息闪现 -->
+        
+            
+        
+
+        <!-- 页面内容 -->
+        
+
+
+<div class="qf-home-main">
+<div class="qf-home-inner">
+<!-- Hero：主标题 + 弱化说明 + 四步流程；新手入门为可拖动固定悬浮窗（见页末） -->
+<div class="hero-section">
+    <div class="position-relative">
+                <div class="hero-content text-center text-md-start w-100">
+                    <div class="qf-hero-intro mx-auto mx-md-0 w-100">
+                    <h1 class="hero-title-line1 mb-0">QuickForm</h1>
+                    <p class="hero-title-line2 mb-0">帮你在网上收导学案、问卷和作业反馈，谁交了、交了什么一目了然。</p>
+                    <p class="hero-tagline">几分钟就能建好一次收集；数据可查、可导出，需要时还能让 AI 帮你整理和分析。与多数只能在自己站点里填表的方案不同，你可以把提交接口接到任意网页、AI 生成的页面或第三方活动页，数据仍统一回到同一后台管理与分析。</p>
+                    <div class="hero-buttons justify-content-center">
+                        
+                            
+                            <a href="/register" class="btn btn-primary btn-lg">立即注册</a>
+                            
+                            <a href="/login" class="btn btn-outline-primary btn-lg">已有账号？登录</a>
+                        
+                    </div>
+                    </div>
+
+                    
+
+                    <div class="qf-steps-section text-start w-100">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                            <h2 class="qf-steps-heading text-center text-md-start mb-0">快速开始</h2>
+                            
+                        </div>
+                        <div class="qf-steps-flow" role="list" aria-label="快速开始">
+                            <article class="qf-step-card" role="listitem">
+                                <div class="qf-step-card-hd">
+                                    <span class="qf-step-num" aria-hidden="true">1</span>
+                                    <h3 class="qf-step-title">账号就绪</h3>
+                                </div>
+                                <div class="qf-step-card-bd">
+                                    <p>免费注册后即可创建收集任务；已有账号直接登录控制台。</p>
+                                    <div class="qf-step-actions">
+                                        
+                                        
+                                        <a href="/register">注册</a>
+                                        
+                                        <a href="/login">登录</a>
+                                        
+                                    </div>
+                                </div>
+                            </article>
+                            <span class="qf-step-arrow d-none d-sm-inline" aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+                            <article class="qf-step-card" role="listitem">
+                                <div class="qf-step-card-hd">
+                                    <span class="qf-step-num" aria-hidden="true">2</span>
+                                    <h3 class="qf-step-title">新建收集任务</h3>
+                                </div>
+                                <div class="qf-step-card-bd">
+                                    <p>给活动起个名字（如「XX课导学案」），系统会为该任务生成专属提交入口与数据结构。</p>
+                                    <div class="qf-step-prompt-label">示例：专属提交入口长什么样</div>
+                                    <pre class="qf-step-prompt qf-step-prompt--short" tabindex="0">POST https://quickform.cn/…/submit/…</pre>
+                                    <div class="qf-step-actions">
+                                        
+                                        
+                                        <a href="/register">注册后创建</a>
+                                        
+                                        
+                                    </div>
+                                </div>
+                            </article>
+                            <span class="qf-step-arrow d-none d-sm-inline" aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+                            <article class="qf-step-card qf-step-card--wide" role="listitem" id="quick-start-step-3">
+                                <div class="qf-step-card-hd">
+                                    <span class="qf-step-num" aria-hidden="true">3</span>
+                                    <h3 class="qf-step-title">页面里提交到 QuickForm</h3>
+                                </div>
+                                <div class="qf-step-card-bd">
+                                    <p>在 AI 生成的网页或现有页面中，把表单的提交地址改成任务提供的 URL（与文档字段名对齐即可）。</p>
+                                    <div class="qf-step-ai-row" id="quick-start-step-3-ai" aria-label="常见 AI 助手">
+                                        <a href="https://www.doubao.com/" target="_blank" rel="noopener noreferrer">豆包</a>
+                                        <a href="https://tongyi.aliyun.com/" target="_blank" rel="noopener noreferrer">通义</a>
+                                        <a href="https://kimi.moonshot.cn/" target="_blank" rel="noopener noreferrer">Kimi</a>
+                                        <a href="https://yiyan.baidu.com/" target="_blank" rel="noopener noreferrer">文心</a>
+                                        <a href="https://xinghuo.xfyun.cn/" target="_blank" rel="noopener noreferrer">讯飞星火</a>
+                                        <a href="https://yuanbao.tencent.com/" target="_blank" rel="noopener noreferrer">腾讯元宝</a>
+                                        <a href="https://www.coze.cn/" target="_blank" rel="noopener noreferrer">扣子</a>
+                                    </div>
+                                    <div class="qf-step-prompt-label">示例提示词（演示用，请替换为你的真实任务地址）</div>
+                                    <pre class="qf-step-prompt" tabindex="0">请生成一个单页 HTML：班级读书打卡表单，含姓名、学号、书名、一句感想；创建完应用后，将数据以POST方式发送到「https://quickform.cn/api/xxxxxx」（控制台里复制）。样式简洁、手机端好用。</pre>
+                                </div>
+                            </article>
+                            <span class="qf-step-arrow d-none d-sm-inline" aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+                            <article class="qf-step-card" role="listitem">
+                                <div class="qf-step-card-hd">
+                                    <span class="qf-step-num" aria-hidden="true">4</span>
+                                    <h3 class="qf-step-title">查看与导出</h3>
+                                </div>
+                                <div class="qf-step-card-bd">
+                                    <p>在任务后台浏览提交记录、筛选字段、导出表格；也可配合简单统计与图表做教学反馈。</p>
+                                    <div class="qf-step-actions">
+                                        
+                                        <a href="https://quickform.readthedocs.io/zh-cn/latest/" target="_blank" rel="noopener noreferrer">官方文档</a>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+
+    
+    <section class="qf-qflink-zone" id="qf-qflink-zone" aria-labelledby="qf-qflink-zone-title">
+        <div class="qf-qflink-zone-inner">
+            <h2 class="qf-home-section-title mb-2" id="qf-qflink-zone-title">QFLink 专区</h2>
+            <p class="qf-home-section-lead">以下站点已部署 QFLink 校园版，教师可使用校园账号互联在线版 QuickForm，在本地 QFLink 中导入任务与数据。</p>
+            <div class="qf-qflink-grid" role="list">
+                
+                <a class="qf-qflink-card" role="listitem" href="https://wzkjgz.site/" target="_blank" rel="noopener noreferrer">
+                    <div class="qf-qflink-card-title">温州科技高中QF校园版</div>
+                    
+                    <div class="qf-qflink-card-sub">由温州科技高级中学提供，支持多模态任务（需要申请）。单任务流量1G，最大附件5M，单任务容量300M，总任务容量3G。</div>
+                    
+                    <div class="qf-qflink-card-url">https://wzkjgz.site/</div>
+                    <span class="qf-qflink-card-cta">进入校园版 <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i></span>
+                </a>
+                
+                <a class="qf-qflink-card" role="listitem" href="https://qf.zmrobo.com/" target="_blank" rel="noopener noreferrer">
+                    <div class="qf-qflink-card-title">中鸣AI教育平台QF校园版</div>
+                    
+                    <div class="qf-qflink-card-sub">中鸣 AI 教育由中鸣机器人提供，支持多模态任务（需要申请）。单任务流量2G，最大附件10M，单任务容量600M，总任务容量5G。 · QFLink 校园版</div>
+                    
+                    <div class="qf-qflink-card-url">https://qf.zmrobo.com/</div>
+                    <span class="qf-qflink-card-cta">进入校园版 <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i></span>
+                </a>
+                
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- 灵感广场（随机公开项目；数据与 _get_cached_community_random 缓存一致） -->
+    <div class="feature-showcase">
+        <div class="home-random-inner">
+        <section class="community-random-section" id="qf-home-random" aria-label="灵感广场">
+            <div class="community-random-head community-random-head--mirrored">
+                <div class="community-random-actions d-flex flex-wrap gap-2">
+                    <a href="/?refresh=1#qf-home-random" class="btn btn-outline-primary btn-sm qf-inspiration-reshuffle">
+                        <i class="bi bi-arrow-repeat"></i> 随机抽取
+                    </a>
+                    
+                    <a href="/community?hot=1" class="btn btn-primary btn-sm">
+                        <i class="bi bi-fire"></i> 查看热榜
+                    </a>
+                    
+                </div>
+                <div class="community-random-head-text">
+                    <h2 class="qf-home-section-title">灵感广场</h2>
+                    <p class="qf-home-section-lead">从已通过审核的公开项目中随机呈现 3 个案例；可预览页面效果与对方提供的教程。</p>
+                </div>
+            </div>
+            
+            <div class="community-random-grid">
+                
+                <article class="community-spot-card">
+                    <div class="community-spot-card-inner">
+                        <div class="community-spot-title">
+                            <a href="/task/14099" target="_blank" rel="noopener">比较大小</a>
+                        </div>
+                        
+                        <div class="community-preview-frame">
+                            <iframe src="/static/uploads/e9fc0710e0b64e68be603d717818e4fc.html" title="比较大小 预览" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+                            <div class="qf-preview-veil" aria-hidden="true"></div>
+                        </div>
+                        
+                    </div>
+                </article>
+                
+                <article class="community-spot-card">
+                    <div class="community-spot-card-inner">
+                        <div class="community-spot-title">
+                            <a href="/task/10308" target="_blank" rel="noopener">智创校园-物联网火情警报系统</a>
+                        </div>
+                        
+                        <div class="community-preview-frame">
+                            <iframe src="/static/uploads/15429ca21e3843d2bcf4010b58cd5580.html" title="智创校园-物联网火情警报系统 预览" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+                            <div class="qf-preview-veil" aria-hidden="true"></div>
+                        </div>
+                        
+                    </div>
+                </article>
+                
+                <article class="community-spot-card">
+                    <div class="community-spot-card-inner">
+                        <div class="community-spot-title">
+                            <a href="/task/13826" target="_blank" rel="noopener">《春之回旋——小小音乐侦探》</a>
+                        </div>
+                        
+                        <div class="community-preview-frame">
+                            <iframe src="/static/uploads/2f29d576d2ce4cbe8e842505bdc3ee18.html" title="《春之回旋——小小音乐侦探》 预览" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+                            <div class="qf-preview-veil" aria-hidden="true"></div>
+                        </div>
+                        
+                    </div>
+                </article>
+                
+            </div>
+            
+        </section>
+        </div>
+    </div>
+
+<!-- 常见问题区域：左侧标题说明，右侧折叠内容 -->
+<div class="faq-section">
+    <div class="faq-container">
+        <div class="qf-home-split">
+            <div class="qf-home-split__side">
+                <h2 class="qf-home-section-title">常见问题</h2>
+            </div>
+            <div class="qf-home-split__main">
+                <div class="accordion" id="homeFaq">
+                    <div class="faq-item accordion-item">
+                        <h2 class="accordion-header" id="faqHeadingOne">
+                            <button class="faq-button accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="false" aria-controls="faqCollapseOne">
+                                谁适合使用 QuickForm？
+                                <span class="faq-icon bi bi-chevron-down"></span>
+                            </button>
+                        </h2>
+                        <div id="faqCollapseOne" class="accordion-collapse collapse" aria-labelledby="faqHeadingOne" data-bs-parent="#homeFaq">
+                            <div class="accordion-body faq-body">
+                                任何需要系统化收集与分析数据的教师、教研员、学生团队和教育管理者都适合使用 QuickForm。无论是课堂小测、课题研究，还是大型问卷与比赛报名，都可以通过 QuickForm 快速搭建表单并自动汇总数据。
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item accordion-item">
+                        <h2 class="accordion-header" id="faqHeadingTwo">
+                            <button class="faq-button accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
+                                QuickForm 提供的数据接口可以和现有网页合并吗？
+                                <span class="faq-icon bi bi-chevron-down"></span>
+                            </button>
+                        </h2>
+                        <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#homeFaq">
+                            <div class="accordion-body faq-body">
+                                可以。QuickForm 为每个任务提供标准化的 HTTP 接口和数据结构，只要在现有表单或前端页面中将提交地址改为任务的 API 地址，即可无侵入对接。导出的数据也可以直接在 Excel、统计软件或 BI 工具中继续分析。
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item accordion-item">
+                        <h2 class="accordion-header" id="faqHeadingThree">
+                            <button class="faq-button accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
+                                我需要会编程才能使用 QuickForm 吗？
+                                <span class="faq-icon bi bi-chevron-down"></span>
+                            </button>
+                        </h2>
+                        <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#homeFaq">
+                            <div class="accordion-body faq-body">
+                                不需要。对于不熟悉编程的老师和同学，可以直接使用现成的 HTML 模板或示例表单，通过复制链接的方式完成部署。对于有一定技术基础的用户，则可以深度定制前端页面，并结合 AI 能力实现更智能的数据处理。
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item accordion-item">
+                        <h2 class="accordion-header" id="faqHeadingFour">
+                            <button class="faq-button accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFour" aria-expanded="false" aria-controls="faqCollapseFour">
+                                教师认证有什么额外权限？
+                                <span class="faq-icon bi bi-chevron-down"></span>
+                            </button>
+                        </h2>
+                        <div id="faqCollapseFour" class="accordion-collapse collapse" aria-labelledby="faqHeadingFour" data-bs-parent="#homeFaq">
+                            <div class="accordion-body faq-body">
+                                通过教师认证后，您可以创建更多任务、直接公开项目到项目交流区，并在上传网页文件时跳过人工审核流程，更快捷地完成教学活动部署。
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item accordion-item">
+                        <h2 class="accordion-header" id="faqHeadingFive">
+                            <button class="faq-button accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFive" aria-expanded="false" aria-controls="faqCollapseFive">
+                                如何进一步学习 QuickForm 的最佳实践？
+                                <span class="faq-icon bi bi-chevron-down"></span>
+                            </button>
+                        </h2>
+                        <div id="faqCollapseFive" class="accordion-collapse collapse" aria-labelledby="faqHeadingFive" data-bs-parent="#homeFaq">
+                            <div class="accordion-body faq-body">
+                                您可以查阅顶部导航中的「文档」与「开源教程」，也可以在「项目交流」中浏览其他老师公开的项目案例；若有问题，欢迎通过问题收集表向我们反馈，我们会在后续版本中持续优化。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 关于 QuickForm（快速开始已上移至首屏流程卡片） -->
+<div class="feature-showcase">
+    <!-- 关于QuickForm -->
+    <div class="feature-showcase-grid" id="about">
+        <div class="feature-showcase-visual">
+            <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 2rem; min-height: 300px; display: flex; align-items: center; justify-content: center; color: #9ca3af;">
+                <div style="text-align: center;">
+                    
+                    <div class="qf-about-us-carousel" id="qfAboutUsCarousel">
+                        <img id="qfAboutUsCarouselImg"
+                             class="qf-about-us-carousel-img"
+                             src="/static/us/us/us.jpg"
+                             alt="关于 QuickForm"
+                             loading="eager">
+                    </div>
+                    
+                    <script>
+                    (function () {
+                        var urls = ["/static/us/us/us.jpg", "/static/us/us/us2.jpg", "/static/us/us/us3.jpg", "/static/us/us/us4.jpg"];
+                        var img = document.getElementById('qfAboutUsCarouselImg');
+                        if (!img || urls.length < 2) return;
+                        var idx = 0;
+                        var intervalMs = 10000;
+                        window.setInterval(function () {
+                            idx = (idx + 1) % urls.length;
+                            img.classList.add('is-fading');
+                            window.setTimeout(function () {
+                                img.src = urls[idx];
+                                img.classList.remove('is-fading');
+                            }, 220);
+                        }, intervalMs);
+                    })();
+                    </script>
+                    
+                    
+                    <p style="color: #4b5563;">关于 QuickForm</p>
+                </div>
+            </div>
+        </div>
+        <div class="feature-showcase-content">
+            <h2 class="qf-home-section-title">关于 QuickForm</h2>
+            <p class="qf-home-about-text">
+                QuickForm 是一款基于 Web 的智能表单管理服务，由温州科技高中 AI 科创中心团队与温州大学联合开发。与多数只能在自己站点里填表的方案不同，你可以把提交接口接到任意网页、AI 生成的页面或第三方活动页，数据仍统一回到同一后台管理与分析。
+            </p>
+            <p class="qf-home-about-text qf-home-about-text--last">
+                系统支持表单管理、数据收集、智能分析、报告生成和 AI 集成等功能，能够自动识别数据趋势、生成可视化图表和详细报告，辅助教师优化教学策略。
+            </p>
+        </div>
+    </div>
+</div>
+
+    <!-- 社会认同区域（页底：信赖说明 + 合作伙伴） -->
+    <div class="social-proof social-proof--home-bottom">
+        <p class="social-proof-text">每天被数千名专业用户信赖使用</p>
+        <div class="social-proof-logos">
+            
+                
+                
+                <a href="http://wzkjgz.wzer.net" target="_blank" rel="noopener noreferrer" title="温州科技高级中学" class="social-proof-logo-link">
+                    <img src="/static/partners/kjgz.png" alt="温州科技高级中学" class="social-proof-logo" loading="lazy">
+                </a>
+                
+                
+                
+                <a href="https://www.tup.tsinghua.edu.cn/" target="_blank" rel="noopener noreferrer" title="清华大学出版社" class="social-proof-logo-link">
+                    <img src="/static/partners/qhcbs.png" alt="清华大学出版社" class="social-proof-logo" loading="lazy">
+                </a>
+                
+                
+                
+                <a href="https://www.wzu.edu.cn/" target="_blank" rel="noopener noreferrer" title="温州大学" class="social-proof-logo-link">
+                    <img src="/static/partners/wzu.jpg" alt="温州大学" class="social-proof-logo" loading="lazy">
+                </a>
+                
+                
+                
+                <a href="https://xedupro.cn/" target="_blank" rel="noopener noreferrer" title="XEduPro 2.0" class="social-proof-logo-link">
+                    <img src="/static/partners/xedu.png" alt="XEduPro 2.0" class="social-proof-logo" loading="lazy">
+                </a>
+                
+                
+            
+        </div>
+    </div>
+</div><!-- /.qf-home-inner -->
+</div><!-- /.qf-home-main -->
+
+
+<!-- 新手入门（视频）：可拖动悬浮入口 + 收起后的小药丸 -->
+<div id="qfHomeVideoFloat" class="qf-video-float" role="complementary" aria-label="新手入门">
+    <div class="qf-video-float-hd">
+        <div class="qf-video-float-drag" title="按住拖动，避免挡住内容">
+            <i class="bi bi-grip-vertical" aria-hidden="true"></i>
+            <span>新手入门</span>
+        </div>
+        <button type="button" class="qf-video-float-close" id="qfHomeVideoFloatClose" aria-label="收起" title="收起">
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+    </div>
+    <button type="button" class="qf-video-float-play" data-bs-toggle="modal" data-bs-target="#homeIntroVideoModal" aria-label="播放新手入门视频">
+        <div class="qf-video-thumb">
+            <i class="bi bi-play-circle-fill" aria-hidden="true"></i>
+        </div>
+    </button>
+</div>
+<button type="button" id="qfHomeVideoPeek" class="qf-video-float-peek" aria-label="展开新手入门入口">
+    <i class="bi bi-play-circle-fill" aria-hidden="true"></i>
+    新手入门
+</button>
+
+
+<!-- 新手入门（视频）：弹窗内嵌 B 站（关闭时卸载 iframe 以停止播放） -->
+<div class="modal fade" id="homeIntroVideoModal" tabindex="-1" aria-labelledby="homeIntroVideoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="homeIntroVideoModalLabel">QuickForm 新手入门</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="ratio ratio-16x9 bg-dark">
+                    <iframe
+                        id="homeIntroVideoIframe"
+                        class="w-100 h-100"
+                        title="QuickForm 新手入门"
+                        scrolling="no"
+                        allowfullscreen
+                        style="border:0;"
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+(function () {
+    var modal = document.getElementById('homeIntroVideoModal');
+    var iframe = document.getElementById('homeIntroVideoIframe');
+    var homeCarouselVideos = [{"title": "QuickForm \u5ba3\u4f20\u89c6\u9891\uff08\u66f4\u65b0\u7248\uff09", "url": "//player.bilibili.com/player.html?isOutside=true\u0026bvid=BV1wa7W6nE7a"}, {"duration_seconds": 93, "title": "QuickForm \u56db\u6b65\u65b9\u6cd5", "url": "//player.bilibili.com/player.html?isOutside=true\u0026bvid=BV1Zw5t61EVA"}, {"duration_seconds": 93, "title": "QuickForm \u89e3\u51b3\u8bfe\u5802\u75db\u70b9", "url": "//player.bilibili.com/player.html?isOutside=true\u0026bvid=BV1om5T6WE1Z"}];
+
+    function _clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+    function _getVideoUrl(idx) {
+        try { return (homeCarouselVideos[idx] && homeCarouselVideos[idx].url) ? String(homeCarouselVideos[idx].url) : ''; } catch (e) {}
+        return '';
+    }
+
+    function _setIframeSrc(targetIframe, url) {
+        if (!targetIframe) return;
+        if (url) targetIframe.setAttribute('src', url);
+        else targetIframe.removeAttribute('src');
+    }
+
+    // 顶部轮播（页面内）
+    var inlineIframe = document.getElementById('qfHomeCarouselIframe');
+    var carouselStage = document.getElementById('qfHomeCarouselStage');
+    var dotsWrap = document.getElementById('qfHomeCarouselDots');
+    var curIdx = 0;
+    var carouselAdvanceTimer = null;
+    var carouselEndQuietUntil = 0;
+
+    function clearCarouselAdvanceTimer() {
+        if (carouselAdvanceTimer) {
+            clearTimeout(carouselAdvanceTimer);
+            carouselAdvanceTimer = null;
+        }
+    }
+
+    function _parseDurationSeconds(item) {
+        if (!item) return null;
+        var raw = item.duration_seconds !== undefined ? item.duration_seconds : item.advance_after_seconds;
+        var n = parseInt(raw, 10);
+        if (!isFinite(n) || n < 15 || n > 7200) return null;
+        return n;
+    }
+
+    function scheduleCarouselAdvance() {
+        clearCarouselAdvanceTimer();
+        if (!inlineIframe || !homeCarouselVideos || homeCarouselVideos.length < 2) return;
+        var sec = _parseDurationSeconds(homeCarouselVideos[curIdx]);
+        if (sec == null) return;
+        carouselAdvanceTimer = window.setTimeout(function () {
+            carouselAdvanceTimer = null;
+            setInlineVideo(curIdx + 1);
+        }, sec * 1000);
+    }
+
+    function maybeAdvanceFromBilibiliPostMessage(ev) {
+        if (!carouselStage || !document.body.contains(carouselStage)) return;
+        if (!inlineIframe || !homeCarouselVideos || homeCarouselVideos.length < 2) return;
+        var o = String(ev.origin || '').replace(/\/+$/, '');
+        if (o.indexOf('player.bilibili.com') === -1) return;
+        try {
+            if (ev.source !== inlineIframe.contentWindow) return;
+        } catch (e) {
+            return;
+        }
+        var now = Date.now();
+        if (now < carouselEndQuietUntil) return;
+        var str = '';
+        try {
+            if (typeof ev.data === 'string') str = ev.data;
+            else if (ev.data != null) str = JSON.stringify(ev.data);
+        } catch (e2) {
+            return;
+        }
+        if (!str || str.length > 4096) return;
+        if (
+            /\bVIDEO_END\b/i.test(str) ||
+            /\bVIDEO_PLAY_END\b/i.test(str) ||
+            /\bplayEnd\b/i.test(str) ||
+            /\b"type"\s*:\s*"ended"/i.test(str) ||
+            /\bplaybackState[^\w]*ended/i.test(str) ||
+            /\bplayback[^\w]*completed/i.test(str)
+        ) {
+            carouselEndQuietUntil = now + 900;
+            setInlineVideo(curIdx + 1);
+        }
+    }
+
+    function bindBilibiliCarouselEndedListenerOnce() {
+        if (!inlineIframe || !homeCarouselVideos || homeCarouselVideos.length < 2) return;
+        if (window._qfHomeBiliCarouselMsg) return;
+        window._qfHomeBiliCarouselMsg = true;
+        window.addEventListener('message', maybeAdvanceFromBilibiliPostMessage, false);
+    }
+
+    function renderDots(activeIdx) {
+        if (!dotsWrap) return;
+        dotsWrap.querySelectorAll('.qf-home-carousel-dot').forEach(function (b) {
+            var i = parseInt(b.getAttribute('data-idx') || '0', 10) || 0;
+            if (i === activeIdx) {
+                b.classList.add('active');
+                b.setAttribute('aria-current', 'true');
+            } else {
+                b.classList.remove('active');
+                b.removeAttribute('aria-current');
+            }
+        });
+    }
+    function setInlineVideo(idx) {
+        if (!inlineIframe || !homeCarouselVideos || homeCarouselVideos.length < 1) return;
+        var n = homeCarouselVideos.length;
+        curIdx = ((idx % n) + n) % n;
+        clearCarouselAdvanceTimer();
+        _setIframeSrc(inlineIframe, _getVideoUrl(curIdx));
+        renderDots(curIdx);
+        scheduleCarouselAdvance();
+    }
+    if (inlineIframe && homeCarouselVideos && homeCarouselVideos.length > 0) {
+        bindBilibiliCarouselEndedListenerOnce();
+        setInlineVideo(0);
+        if (dotsWrap) {
+            dotsWrap.addEventListener('click', function (e) {
+                var t = e.target;
+                if (!t) return;
+                var btn = t.closest ? t.closest('.qf-home-carousel-dot') : null;
+                if (!btn) return;
+                var i = parseInt(btn.getAttribute('data-idx') || '0', 10) || 0;
+                setInlineVideo(i);
+            });
+        }
+        if (carouselStage && homeCarouselVideos.length > 1) {
+            carouselStage.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    setInlineVideo(curIdx - 1);
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    setInlineVideo(curIdx + 1);
+                }
+            });
+            var touchStartX = null;
+            carouselStage.addEventListener('touchstart', function (e) {
+                if (!e.touches || !e.touches[0]) return;
+                touchStartX = e.touches[0].clientX;
+            }, { passive: true });
+            carouselStage.addEventListener('touchend', function (e) {
+                if (touchStartX === null || !e.changedTouches || !e.changedTouches[0]) return;
+                var dx = e.changedTouches[0].clientX - touchStartX;
+                touchStartX = null;
+                if (Math.abs(dx) < 48) return;
+                if (dx > 0) setInlineVideo(curIdx - 1);
+                else setInlineVideo(curIdx + 1);
+            }, { passive: true });
+        }
+    }
+
+    // 弹窗内：打开时加载（默认同第一个视频），关闭时卸载以停止播放
+    if (modal && iframe) {
+        modal.addEventListener('shown.bs.modal', function () {
+            var url = _getVideoUrl(0);
+            if (url) _setIframeSrc(iframe, url);
+        });
+        modal.addEventListener('hidden.bs.modal', function () {
+            _setIframeSrc(iframe, '');
+        });
+    }
+
+    var panel = document.getElementById('qfHomeVideoFloat');
+    var dragHandle = panel && panel.querySelector('.qf-video-float-drag');
+    var closeBtn = document.getElementById('qfHomeVideoFloatClose');
+    var peek = document.getElementById('qfHomeVideoPeek');
+    if (!panel || !dragHandle || !peek) return;
+
+    function applySavedPos() {
+        try {
+            var raw = localStorage.getItem('qfHomeVideoPos');
+            if (!raw) return;
+            var pos = JSON.parse(raw);
+            if (!pos || typeof pos.left !== 'number' || typeof pos.top !== 'number') return;
+            var w = panel.offsetWidth || 220;
+            var h = panel.offsetHeight || 120;
+            panel.style.right = 'auto';
+            panel.style.bottom = 'auto';
+            panel.style.left = _clamp(pos.left, 8, window.innerWidth - w - 8) + 'px';
+            panel.style.top = _clamp(pos.top, 8, window.innerHeight - h - 8) + 'px';
+        } catch (e) {}
+    }
+
+    requestAnimationFrame(applySavedPos);
+
+    var dragging = false;
+    var startX = 0;
+    var startY = 0;
+    var origLeft = 0;
+    var origTop = 0;
+
+    function clientPoint(e) {
+        if (e.touches && e.touches[0]) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        return { x: e.clientX, y: e.clientY };
+    }
+
+    function onDragStart(e) {
+        if (e.type === 'mousedown' && e.button !== 0) return;
+        var p = clientPoint(e);
+        var rect = panel.getBoundingClientRect();
+        origLeft = rect.left;
+        origTop = rect.top;
+        startX = p.x;
+        startY = p.y;
+        panel.style.right = 'auto';
+        panel.style.bottom = 'auto';
+        panel.style.left = origLeft + 'px';
+        panel.style.top = origTop + 'px';
+        dragging = true;
+        panel.classList.add('is-dragging');
+        e.preventDefault();
+    }
+
+    function onDragMove(e) {
+        if (!dragging) return;
+        var p = clientPoint(e);
+        var dx = p.x - startX;
+        var dy = p.y - startY;
+        var nl = origLeft + dx;
+        var nt = origTop + dy;
+        var vw = window.innerWidth;
+        var vh = window.innerHeight;
+        var w = panel.offsetWidth;
+        var h = panel.offsetHeight;
+        nl = _clamp(nl, 8, vw - w - 8);
+        nt = _clamp(nt, 8, vh - h - 8);
+        panel.style.left = nl + 'px';
+        panel.style.top = nt + 'px';
+        e.preventDefault();
+    }
+
+    function onDragEnd() {
+        if (!dragging) return;
+        dragging = false;
+        panel.classList.remove('is-dragging');
+        try {
+            localStorage.setItem('qfHomeVideoPos', JSON.stringify({
+                left: panel.getBoundingClientRect().left,
+                top: panel.getBoundingClientRect().top
+            }));
+        } catch (err) {}
+    }
+
+    dragHandle.addEventListener('mousedown', onDragStart);
+    dragHandle.addEventListener('touchstart', onDragStart, { passive: false });
+    document.addEventListener('mousemove', onDragMove);
+    document.addEventListener('touchmove', onDragMove, { passive: false });
+    document.addEventListener('mouseup', onDragEnd);
+    document.addEventListener('touchend', onDragEnd);
+    document.addEventListener('touchcancel', onDragEnd);
+
+    window.addEventListener('resize', function () {
+        if (panel.classList.contains('is-collapsed')) return;
+        var rect = panel.getBoundingClientRect();
+        var nl = _clamp(rect.left, 8, window.innerWidth - panel.offsetWidth - 8);
+        var nt = _clamp(rect.top, 8, window.innerHeight - panel.offsetHeight - 8);
+        if (nl !== rect.left || nt !== rect.top) {
+            panel.style.left = nl + 'px';
+            panel.style.top = nt + 'px';
+            panel.style.right = 'auto';
+            panel.style.bottom = 'auto';
+        }
+    });
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            panel.classList.add('is-collapsed');
+            peek.classList.add('is-visible');
+        });
+    }
+
+    peek.addEventListener('click', function () {
+        panel.classList.remove('is-collapsed');
+        peek.classList.remove('is-visible');
+    });
+})();
+</script>
+<script src="/static/js/home_script_2.js"></script>
+
+<script src="/static/vendor/introjs/intro.min.js"></script>
+<script src="/static/js/onboarding.js"></script>
+
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p class="mb-2 small text-muted" style="max-width: 42rem; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                <span class="qf-footer-slogan" tabindex="0" role="note" data-bs-toggle="tooltip" data-bs-placement="top" title="不锁死在自家编辑器里——任意网页、大模型生成的 HTML、扣子/豆包等页面，只要改一行提交地址，就能把数据收进同一后台；开放接口、自由组合，这是多数「封闭式表单工具」做不到的。">QuickForm：打通AI赋能教育的最后一公里</span>
+            </p>
+            <p class="mb-2 small">
+                <a href="https://quickform.readthedocs.io/" target="_blank" rel="noopener" class="text-decoration-none me-3">官方文档</a>
+                <a href="https://quickform.readthedocs.io/zh-cn/latest/guide/5.deploy.html" target="_blank" rel="noopener" class="text-decoration-none me-3">本地部署</a>
+                <a href="/cli" class="text-decoration-none me-3">CLI</a>
+                <a href="https://github.com/wstlab/quickform" target="_blank" rel="noopener" class="text-decoration-none me-3">GitHub</a>
+                <a href="/changelog" class="text-decoration-none me-3">更新日志</a>
+                
+                <a href="/community" class="text-decoration-none me-3">项目交流</a>
+                
+                <a href="/#about" class="text-decoration-none me-3">关于我们</a>
+                <a href="https://my.feishu.cn/docx/KYlJdyq3wojmwox8KJTcnKORnob" target="_blank" rel="noopener" class="text-decoration-none me-3">免责声明</a>
+            </p>
+            <p class="mb-1 small text-muted">联系我们：<span class="footer-helper-wrap">QuickForm小助手<span class="footer-helper-popup"><img src="/static/us/helper.jpg" alt="QuickForm小助手" loading="lazy"></span></span> / 投稿邮箱 <a href="mailto:xiezuoru@vip.qq.com">xiezuoru@vip.qq.com</a></p>
+            <p class="mb-0 small">
+                <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" class="text-muted text-decoration-none">浙ICP备2026004372号</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- 全局 Toast 容器 -->
+    <div id="qf-toast-container" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2000;"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script type="application/json" id="qf-broadcast-cfg">{"list": "/api/me/qf-announcements", "msgEmpty": "\u6682\u65e0\u516c\u544a", "msgFail": "\u52a0\u8f7d\u5931\u8d25\uff0c\u8bf7\u7a0d\u540e\u91cd\u8bd5", "msgMarkAll": "\u5168\u90e8\u6807\u4e3a\u5df2\u8bfb", "msgMarkRead": "\u6807\u4e3a\u5df2\u8bfb", "msgNew": "\u65b0", "readAll": "/api/me/qf-announcements/read-all", "readTpl": "/api/me/qf-announcements/888888888/read", "unreadExtra": 0}</script>
+        <script src="/static/js/base_script_1.js"></script>
+        <script>
+        (function initFooterSloganTooltip() {
+            try {
+                var el = document.querySelector('.qf-footer-slogan[data-bs-toggle="tooltip"]');
+                if (!el || !window.bootstrap || !bootstrap.Tooltip) return;
+                new bootstrap.Tooltip(el, {
+                    trigger: 'hover focus',
+                    html: false,
+                    delay: { show: 150, hide: 80 },
+                    container: document.querySelector('footer.footer') || document.body
+                });
+            } catch (e) {}
+        })();
+
+        // ========== 全局 Toast / 非阻塞提示 ==========
+        (function initQuickFormToast() {
+            function _escapeHtml(s) {
+                return String(s || '').replace(/[&<>"']/g, function (c) {
+                    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c] || c);
+                });
+            }
+
+            window.showToast = function showToast(type, message, timeoutMs) {
+                try {
+                    var container = document.getElementById('qf-toast-container');
+                    if (!container || !window.bootstrap) {
+                        throw new Error('toast_unavailable');
+                    }
+                    var t = (type || 'info').toLowerCase();
+                    var headerClass = 'text-bg-primary';
+                    var title = '提示';
+                    if (t === 'success') { headerClass = 'text-bg-success'; title = '成功'; }
+                    else if (t === 'warning') { headerClass = 'text-bg-warning'; title = '注意'; }
+                    else if (t === 'danger' || t === 'error') { headerClass = 'text-bg-danger'; title = '错误'; }
+                    else if (t === 'info') { headerClass = 'text-bg-primary'; title = '提示'; }
+
+                    var toastEl = document.createElement('div');
+                    toastEl.className = 'toast align-items-center border-0 shadow-sm';
+                    toastEl.setAttribute('role', 'status');
+                    toastEl.setAttribute('aria-live', 'polite');
+                    toastEl.setAttribute('aria-atomic', 'true');
+                    toastEl.innerHTML =
+                        '<div class="toast-header ' + headerClass + ' border-0">' +
+                            '<strong class="me-auto">' + _escapeHtml(title) + '</strong>' +
+                            '<button type="button" class="btn-close btn-close-white ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>' +
+                        '</div>' +
+                        '<div class="toast-body" style="background:#fff;color:#111827;">' + _escapeHtml(message) + '</div>';
+
+                    container.appendChild(toastEl);
+                    var toast = bootstrap.Toast.getOrCreateInstance(toastEl, {
+                        delay: (typeof timeoutMs === 'number' ? timeoutMs : 2500),
+                        autohide: true
+                    });
+                    toastEl.addEventListener('hidden.bs.toast', function () {
+                        try { toastEl.remove(); } catch (e) {}
+                    });
+                    toast.show();
+                } catch (e) {
+                    try {
+                        (window._nativeAlert || window.alert)(String(message || ''));
+                    } catch (e2) {}
+                }
+            };
+
+            // 将 alert() 降级为 Toast（保留原生 alert 兜底）
+            try {
+                if (!window._nativeAlert) {
+                    window._nativeAlert = window.alert;
+                }
+                window.alert = function (msg) {
+                    window.showToast('warning', msg, 3000);
+                };
+            } catch (e) {}
+
+            // 按钮加载态工具：防重复点击
+            window.qfSetButtonLoading = function qfSetButtonLoading(btn, isLoading, loadingText) {
+                if (!btn) return;
+                if (isLoading) {
+                    if (btn.dataset && btn.dataset.qfLoading === '1') return;
+                    btn.dataset.qfLoading = '1';
+                    btn.dataset.qfOrigDisabled = btn.disabled ? '1' : '0';
+                    btn.dataset.qfOrigHtml = btn.innerHTML;
+                    btn.disabled = true;
+                    btn.innerHTML = (loadingText || '处理中…');
+                } else {
+                    if (btn.dataset && btn.dataset.qfLoading !== '1') return;
+                    btn.dataset.qfLoading = '0';
+                    btn.disabled = (btn.dataset.qfOrigDisabled === '1');
+                    if (btn.dataset.qfOrigHtml) btn.innerHTML = btn.dataset.qfOrigHtml;
+                }
+            };
+        })();
+
+        // ========== 公共文件上传工具函数 ==========
+
+        /**
+         * 通用的拖拽悬停处理
+         */
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.currentTarget.style.borderColor = '#1a73e8';
+            e.currentTarget.style.backgroundColor = '#f0f7ff';
+        }
+
+        /**
+         * 通用的拖拽离开处理
+         */
+        function handleDragLeaveCommon(e, areaId) {
+            e.preventDefault();
+            e.stopPropagation();
+            const area = document.getElementById(areaId);
+            if (area) {
+                area.style.borderColor = '#d0d0d0';
+                area.style.backgroundColor = '#fafafa';
+            }
+        }
+
+        /**
+         * 通用的文件选择处理
+         * @param {File} file - 选择的文件
+         * @param {string} textDivId - 显示文本的div ID
+         */
+        function handleFileSelectCommon(file, textDivId) {
+            if (!file) return false;
+
+            // 检查文件格式
+            if (!file.name.toLowerCase().endsWith('.html') && !file.name.toLowerCase().endsWith('.htm')) {
+                alert('仅支持上传HTML或HTM格式的文件');
+                return false;
+            }
+
+            // 检查文件大小
+            if (file.size > 4 * 1024 * 1024) {
+                alert('文件大小超过4MB限制');
+                return false;
+            }
+
+            // 显示文件名
+            const textDiv = document.getElementById(textDivId);
+            if (textDiv) {
+                const selectedText = '已选择';
+                textDiv.innerHTML = `<p class="mb-0" style="color: #28a745;">✓ ${selectedText}: ${file.name}</p>`;
+            }
+
+            return true;
+        }
+
+        /**
+         * 通用的拖拽放置处理
+         * @param {Event} e - 拖拽事件
+         * @param {string} fileInputId - 文件输入框ID
+         * @param {string} areaId - 拖拽区域ID
+         * @param {string} textDivId - 文本显示div ID
+         * @param {Function} onFileSelected - 文件选择后的回调函数
+         */
+        function handleDropCommon(e, fileInputId, areaId, textDivId, onFileSelected) {
+            e.preventDefault();
+            e.stopPropagation();
+            const area = document.getElementById(areaId);
+            if (area) {
+                area.style.borderColor = '#d0d0d0';
+                area.style.backgroundColor = '#fafafa';
+            }
+
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                const file = files[0];
+                const fileInput = document.getElementById(fileInputId);
+                if (fileInput) {
+                    // 创建新的FileList（因为不能直接赋值）
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    fileInput.files = dataTransfer.files;
+
+                    if (handleFileSelectCommon(file, textDivId)) {
+                        if (onFileSelected) {
+                            onFileSelected(file);
+                        }
+                    }
+                }
+            }
+        }
+
+        /**
+         * 使用XMLHttpRequest上传文件（避免fetch被拦截）
+         * @param {File} file - 要上传的文件
+         * @param {string} uploadUrl - 上传URL
+         * @param {Object} options - 配置选项
+         * @param {Object} options.formData - 额外的FormData字段
+         * @param {string} options.progressDivId - 进度显示div ID
+         * @param {string} options.successDivId - 成功显示div ID
+         * @param {string} options.errorDivId - 错误显示div ID
+         * @param {string} options.errorMessageId - 错误消息div ID
+         * @param {string} options.textDivId - 文本显示div ID
+         * @param {Function} options.onSuccess - 成功回调
+         * @param {Function} options.onError - 错误回调
+         */
+        function uploadFileWithXHR(file, uploadUrl, options = {}) {
+            const {
+                formData: extraFormData = {},
+                progressDivId,
+                successDivId,
+                errorDivId,
+                errorMessageId,
+                textDivId,
+                onSuccess,
+                onError
+            } = options;
+
+            // 检查文件大小
+            if (file.size > 4 * 1024 * 1024) {
+                const errorMsg = '文件大小超过4MB限制';
+                if (errorDivId && errorMessageId) {
+                    document.getElementById(errorMessageId).textContent = errorMsg;
+                    document.getElementById(errorDivId).style.display = 'block';
+                } else {
+                    alert(errorMsg);
+                }
+                if (onError) onError(new Error(errorMsg));
+                return;
+            }
+
+            // 显示进度
+            if (progressDivId) {
+                document.getElementById(progressDivId).style.display = 'block';
+            }
+            if (textDivId) {
+                document.getElementById(textDivId).style.display = 'none';
+            }
+            if (successDivId) {
+                document.getElementById(successDivId).style.display = 'none';
+            }
+            if (errorDivId) {
+                document.getElementById(errorDivId).style.display = 'none';
+            }
+
+            // 创建FormData
+            const formData = new FormData();
+            formData.append('file', file);
+
+            // 添加额外字段
+            for (const [key, value] of Object.entries(extraFormData)) {
+                formData.append(key, value);
+            }
+
+            // 创建XMLHttpRequest
+            const xhr = new XMLHttpRequest();
+            xhr.timeout = 60000; // 60秒超时
+
+            // 上传进度
+            xhr.upload.addEventListener('progress', function(e) {
+                if (e.lengthComputable) {
+                    const percentComplete = (e.loaded / e.total) * 100;
+                    // 可以在这里更新进度条
+                }
+            });
+
+            // 请求完成
+            xhr.addEventListener('load', function() {
+                if (xhr.status === 200) {
+                    try {
+                        const contentType = xhr.getResponseHeader('content-type');
+                        let success = false;
+
+                        if (contentType && contentType.includes('application/json')) {
+                            const data = JSON.parse(xhr.responseText);
+                            success = data.success === true;
+                            if (!success && onError) {
+                                onError(new Error(data.message || '上传失败'));
+                            }
+                        } else {
+                            // HTML响应，检查是否包含错误
+                            const html = xhr.responseText;
+                            const uploadFailed = '上传失败';
+                            const uploadFailedCheck = '上传失败，请检查文件格式和大小';
+                            if (html.includes('alert-danger') || html.includes(uploadFailed) || html.includes('不支持的文件格式')) {
+                                if (onError) {
+                                    onError(new Error(uploadFailedCheck));
+                                }
+                            } else {
+                                success = true;
+                            }
+                        }
+
+                        if (success) {
+                            if (progressDivId) {
+                                document.getElementById(progressDivId).style.display = 'none';
+                            }
+                            if (successDivId) {
+                                document.getElementById(successDivId).style.display = 'block';
+                            }
+                            if (onSuccess) {
+                                onSuccess();
+                            }
+                        } else {
+                            if (progressDivId) {
+                                document.getElementById(progressDivId).style.display = 'none';
+                            }
+                            if (textDivId) {
+                                document.getElementById(textDivId).style.display = 'flex';
+                            }
+                        }
+                    } catch (e) {
+                        if (progressDivId) {
+                            document.getElementById(progressDivId).style.display = 'none';
+                        }
+                        if (errorDivId && errorMessageId) {
+                            document.getElementById(errorMessageId).textContent = e.message || '上传失败';
+                            document.getElementById(errorDivId).style.display = 'block';
+                        }
+                        if (textDivId) {
+                            document.getElementById(textDivId).style.display = 'flex';
+                        }
+                        if (onError) {
+                            onError(e);
+                        }
+                    }
+                } else {
+                    const errorMsg = '上传失败，HTTP状态码: ' + xhr.status;
+                    if (progressDivId) {
+                        document.getElementById(progressDivId).style.display = 'none';
+                    }
+                    if (errorDivId && errorMessageId) {
+                        document.getElementById(errorMessageId).textContent = errorMsg;
+                        document.getElementById(errorDivId).style.display = 'block';
+                    }
+                    if (textDivId) {
+                        document.getElementById(textDivId).style.display = 'flex';
+                    }
+                    if (onError) {
+                        onError(new Error(errorMsg));
+                    }
+                }
+            });
+
+            // 请求错误
+            xhr.addEventListener('error', function() {
+                const errorMsg = '网络错误，上传失败。请检查网络连接后重试。';
+                if (progressDivId) {
+                    document.getElementById(progressDivId).style.display = 'none';
+                }
+                if (errorDivId && errorMessageId) {
+                    document.getElementById(errorMessageId).textContent = errorMsg;
+                    document.getElementById(errorDivId).style.display = 'block';
+                }
+                if (textDivId) {
+                    document.getElementById(textDivId).style.display = 'flex';
+                }
+                if (onError) {
+                    onError(new Error(errorMsg));
+                }
+            });
+
+            // 请求超时
+            xhr.addEventListener('timeout', function() {
+                const errorMsg = '上传超时，请检查网络连接后重试。';
+                if (progressDivId) {
+                    document.getElementById(progressDivId).style.display = 'none';
+                }
+                if (errorDivId && errorMessageId) {
+                    document.getElementById(errorMessageId).textContent = errorMsg;
+                    document.getElementById(errorDivId).style.display = 'block';
+                }
+                if (textDivId) {
+                    document.getElementById(textDivId).style.display = 'flex';
+                }
+                if (onError) {
+                    onError(new Error(errorMsg));
+                }
+            });
+
+            // 发送请求
+            xhr.open('POST', uploadUrl, true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.send(formData);
+        }
+    </script>
+    <div class="modal fade" id="qfExportTaskModal" tabindex="-1" aria-labelledby="qfExportTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="qfExportTaskModalLabel">任务导出</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">请选择导出内容。点击「取消」将不进行任何导出。</p>
+                    <ul class="small text-muted mb-0 mt-2 ps-3">
+                        <li><strong>含数据</strong>：任务结构、网页文件及全部提交数据</li>
+                        <li><strong>仅结构</strong>：任务结构与网页文件（不含提交数据）</li>
+                    </ul>
+                </div>
+                <div class="modal-footer flex-wrap gap-2">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-outline-primary" id="qfExportTaskStructOnlyBtn">仅结构与网页</button>
+                    <button type="button" class="btn btn-primary" id="qfExportTaskWithDataBtn">含全部数据</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="qf-nav-entering-overlay" role="status" aria-live="polite" aria-busy="true">
+        <div class="qf-nav-entering-spinner" aria-hidden="true"></div>
+        <span>正在进入…</span>
+    </div>
+        <script src="/static/js/base_script_3.js"></script>
+        <script src="/static/js/base_script_4.js"></script>
+        <script>
+        /* 维护提示轮询：页面加载之后才进入维护态的，也能「弹」出提示（无需刷新）。
+           仅在首页（body.qf-page-home）或 scope=all 时生效；60s 一次，失败静默。 */
+        (function () {
+            try {
+                var scope = "home";
+                var isHome = !!(document.body && document.body.classList.contains('qf-page-home'));
+                if (scope !== 'all' && !isHome) { return; }
+                if (document.getElementById('qf-maintenance-banner')) { return; }
+                var statusUrl = "/api/maintenance/status";
+                function render(title, message) {
+                    if (document.getElementById('qf-maintenance-banner')) { return; }
+                    var wrap = document.createElement('div');
+                    wrap.id = 'qf-maintenance-banner';
+                    wrap.className = 'qf-maintenance-banner';
+                    wrap.setAttribute('role', 'alert');
+                    var inner = document.createElement('div');
+                    inner.className = 'qf-maintenance-banner-inner';
+                    var icon = document.createElement('i');
+                    icon.className = 'bi bi-tools';
+                    icon.setAttribute('aria-hidden', 'true');
+                    var text = document.createElement('div');
+                    text.className = 'qf-maintenance-banner-text';
+                    var strong = document.createElement('strong');
+                    strong.textContent = title || '';
+                    var span = document.createElement('span');
+                    span.textContent = message || '';
+                    text.appendChild(strong);
+                    text.appendChild(span);
+                    inner.appendChild(icon);
+                    inner.appendChild(text);
+                    wrap.appendChild(inner);
+                    if (document.body) {
+                        if (document.body.firstChild) {
+                            document.body.insertBefore(wrap, document.body.firstChild);
+                        } else {
+                            document.body.appendChild(wrap);
+                        }
+                    }
+                }
+                function tick() {
+                    try {
+                        fetch(statusUrl, { headers: { 'Accept': 'application/json' }, cache: 'no-store' })
+                            .then(function (r) { return r.json(); })
+                            .then(function (d) { if (d && d.active) { render(d.title, d.message); } })
+                            .catch(function () {});
+                    } catch (e) { /* 静默 */ }
+                }
+                window.setTimeout(tick, 3000);
+                window.setInterval(tick, 60000);
+            } catch (e) { /* 静默 */ }
+        })();
+        </script>
+    
+    
+</body>
+</html>
