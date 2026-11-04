@@ -1,68 +1,71 @@
 ---
 # gstack: design-md-format=spec
-name: QuickForm
-description: 清楚可靠、操作省心的中文数据收集工作台，以浅灰绿底色和深青绿操作建立秩序。
+name: PageNest
+description: 克制的 macOS 暗色收集工作空间，用分层深灰、半透明侧栏和清晰状态组织任务与结果。
 colors:
-  primary: "#146653"
-  primary-hover: "#0D5142"
+  primary: "#3A3A3C"
+  primary-hover: "#48484A"
   on-primary: "#FFFFFF"
-  background: "#F3F6F5"
-  surface: "#FFFFFF"
-  text: "#1C302D"
-  text-muted: "#5E726D"
-  border: "#DBE4E0"
-  input-border: "#7C9188"
-  accent: "#146653"
-  tint: "#E7F2ED"
-  focus: "#329D87"
-  success: "#216644"
-  warning: "#865711"
-  warning-background: "#FFF4DC"
-  error: "#B03B35"
-  error-background: "#FFF0EE"
-  info: "#245F88"
-  info-background: "#EAF3FA"
-  code-background: "#203831"
-  code-text: "#D7EEE4"
+  background: "#1C1C1E"
+  surface: "#2C2C2E"
+  surface-raised: "#3A3A3C"
+  text: "#F4F4F5"
+  text-muted: "#B7B7BC"
+  text-subtle: "#A6A6AE"
+  border: "rgba(255,255,255,0.10)"
+  input-border: "#85858E"
+  button-border: "#A3A3AB"
+  accent: "#0A84FF"
+  link: "#66B3FF"
+  focus: "#66B3FF"
+  success: "#67D992"
+  warning: "#FFBB56"
+  error: "#FF8C85"
+  code-background: "#1C1C1E"
+  code-text: "#D5D5DB"
 typography:
+  brand:
+    fontFamily: '"Source Sans 3", sans-serif'
+    fontWeight: 600
+    fontSize: "24px"
+    letterSpacing: "-0.6px"
   display:
-    fontFamily: "Noto Sans SC, Source Sans 3, sans-serif"
+    fontFamily: 'Georgia, "Songti SC", serif'
     fontWeight: 600
     fontSize: "30px"
-    lineHeight: 1.35
+    lineHeight: 1.4
     letterSpacing: "-0.6px"
   heading:
-    fontFamily: "Noto Sans SC, Source Sans 3, sans-serif"
+    fontFamily: 'Georgia, "Songti SC", serif'
     fontWeight: 600
-    fontSize: "20px"
-    lineHeight: 1.45
+    fontSize: "23px"
+    lineHeight: 1.4
   body:
-    fontFamily: "Source Sans 3, Noto Sans SC, sans-serif"
+    fontFamily: '"Source Sans 3", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif'
     fontWeight: 400
     fontSize: "14px"
-    lineHeight: 1.65
+    lineHeight: 1.6
   label:
-    fontFamily: "Source Sans 3, Noto Sans SC, sans-serif"
+    fontFamily: '"Source Sans 3", -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif'
     fontWeight: 500
     fontSize: "12px"
   caption:
-    fontFamily: "Source Sans 3, Noto Sans SC, sans-serif"
+    fontFamily: '"Source Sans 3", -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif'
     fontSize: "11px"
   number:
-    fontFamily: "Source Sans 3, Noto Sans SC, sans-serif"
-    fontWeight: 600
-    fontSize: "34px"
+    fontFamily: '"Source Sans 3", -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif'
+    fontWeight: 500
+    fontSize: "32px"
     fontFeature: "tnum"
   mono:
-    fontFamily: "JetBrains Mono, Noto Sans SC, monospace"
-    fontSize: "11px"
-    fontFeature: "tnum"
+    fontFamily: '"SFMono-Regular", Menlo, Consolas, monospace'
+    fontSize: "12px"
 rounded:
-  sm: "5px"
+  sm: "4px"
   md: "6px"
   lg: "8px"
-  badge: "4px"
-  full: "9999px"
+  panel: "10px"
+  form: "12px"
 spacing:
   xs: "4px"
   sm: "8px"
@@ -74,144 +77,153 @@ components:
   button-primary:
     backgroundColor: "{colors.primary}"
     textColor: "{colors.on-primary}"
+    borderColor: "{colors.button-border}"
     rounded: "{rounded.md}"
-    padding: "9px 15px"
-    transition: "background 150ms ease, transform 150ms ease"
+    padding: "8px 14px"
+    minHeight: "40px"
+    transition: "background-color 200ms ease-out, color 200ms ease-out, border-color 200ms ease-out"
   button-primary-hover:
     backgroundColor: "{colors.primary-hover}"
   button-secondary:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.text}"
-    borderColor: "{colors.border}"
+    borderColor: "{colors.input-border}"
     rounded: "{rounded.md}"
   input:
-    backgroundColor: "{colors.surface}"
+    backgroundColor: "{colors.background}"
     textColor: "{colors.text}"
     borderColor: "{colors.input-border}"
-    rounded: "{rounded.sm}"
+    rounded: "{rounded.md}"
     padding: "10px 12px"
   panel:
-    backgroundColor: "{colors.surface}"
+    backgroundColor: "{colors.background}"
     borderColor: "{colors.border}"
-    rounded: "{rounded.lg}"
+    rounded: "{rounded.panel}"
+  sidebar:
+    backgroundColor: "rgba(28,28,30,0.8)"
+    backdropFilter: "blur(24px)"
   nav-link:
     textColor: "{colors.text-muted}"
   nav-link-active:
-    backgroundColor: "{colors.tint}"
-    textColor: "{colors.primary}"
+    backgroundColor: "rgba(255,255,255,0.10)"
+    textColor: "{colors.text}"
   focus-visible:
     outlineColor: "{colors.focus}"
+    outlineWidth: "2px"
     outlineStyle: "solid"
-    outlineWidth: "3px"
     outlineOffset: "4px"
   layout:
-    sidebarWidth: "218px"
-    contentMaxWidth: "1280px"
-    desktopPadding: "38px 40px 60px"
-    compactBreakpoint: "1100px"
-    compactSidebarWidth: "178px"
-    mobileBreakpoint: "760px"
-    mobilePadding: "26px 18px"
-    mobileTitleSize: "25px"
+    sidebarWidth: "190px"
+    taskListWidth: "274px"
+    contentMaxWidth: "1400px"
+    desktopPadding: "34px 36px 40px"
+    compactBreakpoint: "1150px"
+    compactSidebarWidth: "170px"
+    compactTaskListWidth: "230px"
+    taskListCollapseBreakpoint: "800px"
+    mobileBreakpoint: "560px"
+    mobilePadding: "24px 18px 32px"
+    mobileTitleSize: "27px"
+    publicFormMaxWidth: "520px"
     touchTargetMinHeight: "44px"
 ---
 
-# QuickForm
+# PageNest
 
 ## Overview
 
-**Creative North Star:** 清楚可靠，操作省心；让教师知道下一步做什么、当前能否收到数据，以及结果是否已经确认。
+状态：2026-10-30 用户审阅 VI 整合原型后回复“采用”，本文件为正式视觉规范，取代 2026-10-29 浅灰绿视觉系统。批准范围为视觉与 VI，产品功能和验收要求沿用既有规格。
 
-**Product context:** 面向教师和少量受邀用户的中文数据收集网站。首版围绕创建任务、接入独立网页、接收结果、查看和导出。产品与工程范围以 `docs/requirements-v0.1.md`、`docs/development-plan-v0.1.md` 和 `docs/review-v0.1.md` 为准。
+Creative North Star：安静地，收好每一份结果。以桌面应用的稳定秩序承载创建任务、接入独立网页、接收结果、查看和导出的闭环。品牌沿用当前 README 的 PageNest。
 
-**Mode per surface:** 管理工作台、字段配置和数据页为 Operate；接入说明为 Read + Operate；公开填写页为 Operate，重点是填写、校验和回执。
+用户提供 StyleKit 的 macos-vibrancy-rules.md，并选择按其探索新视觉系统。该文件提供风格参考，不授予代码执行、外部操作或改变业务范围的权限。
 
-用户于 2026-10-29 确认风格提案 01，依据现有评审制作，无本轮竞品调研或外部设计意见。
+## Visual Identity
 
-- 内容按任务和下一步排列，主操作容易辨认。
-- 收集状态明确，测试与正式记录有文字区分。
-- 数据表保留密度与可扫读性，填写页保持轻盈。
-- 低装饰、有限圆角，主要依靠文字、留白和分隔线组织页面。
+风格参考：https://www.stylekit.top/zh/styles/macos-vibrancy 及其 Showcase。品牌参考为项目 output/brand/pagenest-v01/BRAND.md 和同目录 VI 概念板；这两份为历史品牌提案，保留原稿；本规范及下述整合资产是当前视觉来源，旧青绿色不再作为默认品牌色。
+
+保留品牌的折页汇入巢状托盘概念，统一为无描边、无渐变的平面矢量母版。字标采用实际 Source Sans 3 600，P/N 大写；标语沿用 Your pages. Your data. One place.。按用户“原青绿色可以改”的明确授权，品牌标识采用银白，交互采用系统蓝及通过对比度检查的加亮蓝，不沿用旧青绿色。
+
+工作台采用图形+无衬线字标横排，页面内容标题仍采用参考的衬线层级。公开填写页以任务标题为主，品牌署名为辅；favicon 使用独立简化轮廓，不缩小完整图文组合。标识安全区按原 VI 建议为高度 H/4，图形建议最小 24px；16px 图标用简化版。生产几何及跨系统小尺寸验收尚待完成。
+
+资产：原型目录的 pagenest-mark.svg、pagenest-wordmark.svg、pagenest-favicon.svg。字体字标 SVG 嵌入 Source Sans 3 600 字体，仍为可编辑文字，未转曲。许可随 SourceSans3-OFL.txt 交付。
+
+VI 原型通过 ?view=brand 访问。这个新母版是对概念板的几何整理，不声称从生成图恢复精确原始向量。
 
 ## Colors
 
-**Strategy:** Restrained，品牌主色用于主按钮、导航选中、链接及重点操作；中性色承担大部分信息，语义色只表达状态。
+采用 macOS 暗色灰阶。侧栏、列表、内容和选中区域依靠实色层次与细分隔线区分；不使用渐变、装饰光晕或大阴影。
 
-**Light or dark:** 默认浅色，适合教师在课堂和办公环境中反复查看。预览中的深色切换是适配探索，未纳入首版产品范围，其候选值不属于本规范的正式 token。
+主按钮使用中性灰底；链接与焦点使用加亮蓝色，系统强调蓝用于勾选控件。相较参考的矛盾按钮示例，本规范明确不采用蓝色大面积按钮。
 
-成功、警告、错误和信息提示必须同时有文字。品牌色不自动等同于业务成功；任务“已开启”与“实际可接收”遵循业务接收条件。正文、辅助信息和边界分别使用对应 token；辅助信息不承载唯一的关键操作或错误解释。
+装饰边框与必要控件边界分开。必要输入/按钮边界及焦点至少达到 3:1，普通文字至少 4.5:1；不使用参考的白色 40% 承载关键文字。状态始终同时显示文字，不依赖颜色或单独色点。
 
 ## Typography
 
-中文使用 Noto Sans SC（思源黑体），以清晰字形和稳定字重服务于教学与管理信息；Source Sans 3 承担英文品牌、数字和混排中的拉丁字形，形成紧凑的工作台语气。JetBrains Mono 仅用于代码、字段标识和需要精确比对的标识符，普通用户文案保持自然中文。
+标题用 Georgia 与系统宋体回退形成衬线语气。正文英文、数字和品牌字标使用嵌入的 Source Sans 3 400/600；中文使用系统无衬线回退，代码使用本机等宽字体。已核对 Google Fonts CSS 与字体二进制，OFL 许可保留，浏览时无远程字体依赖。中文与页面衬线标题允许设备间字形差异。正式中文字体继续以原 VI 的 Noto Sans SC 为后续自托管候选，本原型不声称已嵌入它。
 
-字体来自 Google Fonts，2026-10-29 已实时获取 CSS 并确认三个字体声明。中文加载常规、中等、半粗和粗体，英文加载常规、半粗和粗体，代码加载常规和中等；采用 `font-display: swap`，避免字体加载阻塞内容。正式实现可自托管同字体并保留许可，中文字体资源应按实际需求分片。
-
-展示标题与正文保持明显层级；数字使用等宽数字特性帮助列对齐。标签始终可见，placeholder 仅作示例。小号辅助文字不用于正文说明或重要错误提示。小屏标题按布局 token 收敛，输入内容不因追求密度而截断。
+普通产品文案用自然中文。代码标识集中于接入说明、字段标识及记录详情，不混入填写者的主流程。标签始终可见，placeholder 不替代标签。
 
 ## Layout
 
-桌面使用左侧工作空间导航与右侧内容区；尺寸和断点见 `components.layout`。中等宽度收窄导航与外边距。小屏改为横排导航，表单和字段编辑/预览上下排列；数据表在自身容器内横向滚动，页面本身不应产生横向溢出。
+桌面依次为空间导航、任务列表、任务内容。任务列表只显示自身可比较的信息，不引入模板、组织、AI 或统计模块。大屏主内容保持上限；较窄桌面先收窄两栏，中屏以任务选择替代列表，手机改用横排主导航。
 
-工作台以任务名称、有效状态、当前记录、累计接收/上限和下一步构成可比较列表。详情保留概览、接入说明、数据和设置区域；预览侧栏的页面清单是设计审阅导航，不是正式产品信息架构。
+原型为了审阅显示设计规范、帮助和演示状态入口，这些不是首版业务导航的自动扩展。原型将字段配置作为额外可达页；正式任务信息架构仍以业务规格的概览、接入、数据和设置为准。
 
-沿用 D10：累计正式接收为零的任务默认进入接入说明，曾有正式接收的任务默认进入数据；测试不触发阶段切换，当前操作不被自动跳页打断。沿用 D11：桌面字段列表与当前设置同区，填写预览在旁；不新增拖拽设计器。
+沿用 D10：累计正式接收为零默认进入接入说明，有过正式接收默认进入数据；控制台测试不改变阶段，不因后台新增结果自动切走当前页面。沿用 D11：桌面字段编辑和填写预览并列，小屏上下排列；只提供上下移动，不新增拖拽设计器。
 
-公开填写页使用居中的单列表单，适配手机，表单之外不混入管理入口。页面先说明收集用途，再显示字段和提交动作。
+公开填写页居中单列，先说明用途，再呈现字段。表格只在自身容器内横向滚动，整页不横向溢出；筛选项在小屏换行。
 
 ## Elevation & Depth
 
-主要使用背景、白色表面与细边框表达层次。数据表、字段预览和接入步骤可有完整边界；普通段落无需再包卡片。默认不使用装饰阴影、发光描边、玻璃模糊或背景光晕。
+依靠三级背景和细边界表达层次。毛玻璃集中在空间侧栏，使用背景模糊；不添加图案或图片来刻意制造玻璃效果。在不支持模糊的浏览器中使用深灰背景作为回退。
 
 ## Shapes
 
-输入、按钮、面板与状态标记采用分级圆角，值见 `rounded`。导航和表格保持直线对齐；字段设置与字段列表可连续连接，不层层嵌套容器。头像可使用完整圆形，不将所有按钮改为胶囊。
+圆角有限且有层级，不使用胶囊控件、大圆角卡片或圆形装饰按钮。所有边框为细线，键盘焦点使用独立轮廓保证可见。
 
 ## Components
 
-- **按钮：** 每页突出一个主要结果动作，使用“创建收集任务”“复制给 AI 的接入说明”“导出当前筛选”等具体文案。次要操作用边框或文字。hover 使用主题色变化，active 轻微位移；disabled 同时阻止交互并给出状态解释，不能仅改变透明度。
-- **焦点：** 交互元素显示统一 focus-visible 描边，不移除键盘焦点。触控设备使用布局 token 中的最小目标高度。读屏、全键盘与触控仍需在正式实现中专项验收。
-- **输入：** 标签、帮助和错误就近显示；错误不能只靠颜色。保存或提交失败保留输入。未知提交按 D12 锁定本次内容，只用原内容和原 key 重试确认；普通填写页不展示内部 key。
-- **表格：** 名称和下一步主次清楚，列头可辨认，数字对齐。记录详情可展开或进入详情页，避免所有次级操作都弹窗。当前记录与累计接收/上限分别显示，删除不恢复累计名额。
-- **接入进度：** 复制说明和控制台测试只表示各自步骤，不能标记独立网页真实接入完成。外部提交需人工核对正式记录。技术地址和字段契约集中在接入区域。
-- **反馈：** 未接入、只有测试、筛选无结果、正文已删、读取失败分别解释；读取失败时数量未知，不显示零或把旧数量当新结果。加载状态不伪造完成，导出中或失败不表示文件完整生成。
-- **接收状态：** 状态不只使用开关或色点。D13 已在用户授权下选定：同时显示全部当前阻塞原因，拥有者看到对应处理入口；处理一项后保留其余原因，全部满足才显示可接收。填写者不显示管理入口。
-
-发布确认、导出、删除、会话及各类状态的正式规格见 `docs/design-interactions-v0.1.md`。预览仍是模拟工件，不将演示按钮当成生产功能已经实现。原生下载只提示请求已发起，不声称文件已保存到电脑。
+- 按钮：每页突出一个结果动作，例如导出数据、复制接入说明、确认发布。次要动作使用边框或文字，disabled 同时阻止执行并给出原因。
+- 字段：标签、帮助、错误就近显示，保存失败保留输入。发布后冻结字段结构，明确说明原因和复制入口，不能仅置灰。
+- 接收状态：同时显示全部实际阻塞及拥有者处理入口。解决一项不掩盖其余条件，全部通过才可接收。公开填写者不显示管理处理入口。
+- 数据：当前记录和累计接收分别显示，删除不释放名额；零值不视为缺失。读取失败隐藏旧表格、分页和旧数量，显示未知及重试。
+- 接入：复制及控制台测试成功只表示各自步骤完成。真实接入需要独立网页提交后人工核对正式记录。
+- 导出：默认当前筛选，允许显式选择全部，CSV/JSON 格式。正式实现遵循服务端固定快照并完整生成后发送；浏览器仅提示下载请求发起，不宣称保存成功。
+- 删除：确认文案说明正文不可恢复、累计名额不释放。生产失响应保留原行并核对，不能把本地模拟替代服务端保证。
+- 未知提交：按 D12 固定原内容和原 key，字段只读，重试确认同一回执；普通填写者不接触内部 key。
+- 焦点与对话框：原生 dialog 提供焦点限制和 Escape 关闭，关闭后回到发起控件；移动端触控目标遵守布局 token。生产读屏和全键盘流程另行验收。
 
 ## Do's and Don'ts
 
-- Do：每页主动作与当前阶段一致，按钮命名具体结果。
-- Do：同时用文字和颜色表达接收、错误和未知状态。
-- Do：保持字段编辑与预览对应，表格能辨认零值和未填写。
-- Do：手机表单单列，表格局部滚动，键盘焦点清楚。
-- Don't：用测试成功、复制成功代替真实外部接入验收。
-- Don't：混淆当前记录、累计名额、人工开关和实际接收能力。
-- Don't：引入紫色渐变、装饰光晕、重复图标卡片或虚构统计。
-- Don't：把代码标识和实现细节放入普通填写者的主流程。
+- Do：用克制的层次建立秩序，优先展示当前状态与下一步。
+- Do：让接收状态、计数和筛选结果互相一致。
+- Do：使用明确文字表达模拟数据、测试结果与真实服务端回执的区别。
+- Don't：加入渐变、发光、放大、浮动或装饰动画。
+- Don't：把风格原型当成真实应用或上线验收通过。
+- Don't：把设计审阅工具带入正式公开填写页。
 
 ## Motion
 
-**Approach:** minimal-functional。动态仅辅助控件反馈，不做自动轮播、长时间入场或页面跳动。
-
-控件过渡使用 `button-primary` token。出现使用 ease-out，消失使用 ease-in，移动使用 ease-in-out。尊重 `prefers-reduced-motion`，关闭非必要位移、平滑滚动和过渡。
-
-**The one authored moment:** 提交结果从待确认转为明确回执，反馈就近出现且可被读屏读取；未知状态不播放成功效果、不自动生成新提交。该表现仍需真实服务端结果驱动。
+仅颜色反馈，避免布局位移。尊重 prefers-reduced-motion，关闭非必要过渡。未知提交不播放成功效果；从待确认到回执的反馈必须由真实服务端结果驱动，且能被辅助技术感知。
 
 ## Approval & Verification
 
-获批视觉工件：[交互预览](http://127.0.0.1:8766/)；本机保存于 `/Users/fanjiarong/.gstack/projects/Quickform/designs/style-20261029/`，其中 `PROPOSAL.md`、`VERIFICATION.md` 和截图保留提案与验证依据。
+用户于 2026-10-30 明确回复“采用”，批准 02.2 整合版：银白折页入巢标识、Source Sans 3 品牌字标、三级深灰与系统蓝交互。批准记录见 docs/visual-approval-2026-10-30.md。旧规范归档于设计目录 DESIGN.previous-light.md，供追溯。
 
-桌面已目视检查工作台、字段配置和数据页；手机填写页在窄屏检查无整页横向溢出。得分零值、未知后只读与模拟重试回执、读取失败隐藏旧数量与分页均有本地浏览器证据。没有真实后端、数据库或公网提交验证，不代表完整设计评审、代码或上线验收通过。
+已批准原型工件：/Users/fanjiarong/.gstack/projects/Quickform/designs/macos-vibrancy-20261030/index.html。
+原型预览：http://127.0.0.1:8767/；VI 预览：http://127.0.0.1:8767/?view=brand。本地模拟时钟和数据有明确标识。浏览器检查见同目录 VERIFICATION.md 与证据文件。
 
-风格批准不包含首版深色模式。2026-10-29 续审在用户授权下完成剩余简单交互与可访问性规格，设计未决为零；正式实现、键盘/读屏、工程与发布验收仍待执行。必要输入边界使用加深后的 token，不能借用装饰分隔线代替。普通文字对比度至少 4.5:1，大字和必要控件边界至少 3:1。
+本轮没有真实数据库、账号隔离、公网提交、服务端导出、持久化、部署、恢复演练、VoiceOver 或 Safari 玻璃效果的验证；这些不因视觉批准而通过。完整需求与交互仍以 docs/requirements-v0.1.md、docs/design-interactions-v0.1.md 和工程评审为准。
 
 ## Decisions Log
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
-| 2026-10-29 | 确认“清楚可靠，操作省心”与基于现有评审制作预览 | 用户明确选择，优先呈现收集闭环 |
-| 2026-10-29 | 采用风格提案 01，建立正式设计规范 | 用户回复 A 批准风格并写入 DESIGN.md、AGENTS.md |
-| 2026-10-29 | 风格批准时保留 D13 与剩余交互评审 | 随后在下列授权续审中处理，未把风格批准扩大为业务批准 |
-| 2026-10-29 | 用户授权简单问题自行决定，D13—D23 已落实 | 交互/文案/响应式细化均保持原 P0 范围，详见设计交互规范 |
-| 2026-10-29 | 加深输入边界，补齐对比度与焦点验收 | 原边界与白底约 1.92:1，调整后达到必要控件边界 3:1 要求 |
+| 2026-10-29 | 浅灰绿视觉系统获批 | 旧提案及原规范保留，用于追溯 |
+| 2026-10-30 | 用户提供 macOS Vibrancy 参考并选择 A | 授权探索暗色原型，先审阅后更新正式规范 |
+| 2026-10-30 | 中性主按钮、蓝色链接和焦点 | 解决参考规则与按钮示例互相矛盾 |
+| 2026-10-30 | 加深必要控件边界与辅助文字 | 保证暗色操作界面可辨认 |
+| 2026-10-30 | 准备新系统候选稿 | 最终批准前不替换正式 DESIGN.md |
+
+| 2026-10-30 | 用户回复“采用”，正式批准 02.2 整合版 | 写入本规范；保留功能范围与生产验收边界 |
