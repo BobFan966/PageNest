@@ -19,6 +19,7 @@ PageNest 是正在规划的数据收集网站。首版目标是让创建者完�
 | [评审记录](docs/review-v0.1.md) | 决策、问题及验证边界 |
 | [设计规范](DESIGN.md) | 已批准的视觉系统 |
 | [交互规范](docs/design-interactions-v0.1.md) | 交互方案及待执行的验收要求 |
+| [逐页设计预览](docs/page-designs-2026-11-04.md) | 10 页可操作设计原型、截图与本地验证边界 |
 | [协作规则](AGENTS.md) | 修改项目时需要遵守的约束 |
 | [版本管理指南](docs/version-control.md) | 提交、分支、同步和恢复方法 |
 
